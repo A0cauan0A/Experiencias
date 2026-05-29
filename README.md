@@ -26,7 +26,7 @@ Abra o terminal do seu sistema operacional (ou o terminal integrado do VS Code) 
 npm install
 ```
 
-3. Inicialização do ServidorCom as dependências devidamente baixadas, execute o comando de inicialização do script principal:Bashnode server.js
+### 3. Inicialização do ServidorCom as dependências devidamente baixadas, execute o comando de inicialização do script principal:Bashnode server.js
 O terminal exibirá a mensagem de confirmação de que os endpoints estão ativos:Servidor simulando API REST rodando em http://localhost:3000Nota: Mantenha esta janela de terminal aberta enquanto realiza os testes de requisições.🧭 Estrutura de Endpoints Disponíveis (API REST)A API expõe o recurso /api/pets aceitando operações através dos verbos HTTP padrões do protocolo REST:MétodoEndpointDescriçãoCorpo da Requisição (JSON)GET/api/petsRecupera a lista completa de pets cadastrados em memória.NenhumPOST/api/petsCria um novo registro de alerta de pet no sistema.Objeto com propriedades do pet.PUT/api/pets/:idAltera dados de um pet existente localizando-o pelo ID na URL.Campos a serem atualizados.DELETE/api/pets/:idRemove permanentemente o registro de um pet através do ID.Nenhum
 ---
 
