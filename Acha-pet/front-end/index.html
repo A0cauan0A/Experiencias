@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acha-Pet - API Local em Memória</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <header class="header-main">
+        <div class="container-center flex justify-between items-center">
+            <h1 class="text-2xl font-bold font-mono">🐾 Acha-Pet (API REST Local)</h1>
+            <span class="badge-mode">Modo: Dados em Memória</span>
+        </div>
+    </header>
+
+    <main class="main-content">
+        
+        <section class="form-section">
+            <h2 class="section-title">Anunciar um Pet (Enviar para o Controller)</h2>
+            <form id="petForm" class="form-grid">
+                <div>
+                    <label class="form-label">Status</label>
+                    <select id="status" class="form-input font-semibold text-gray-700">
+                        <option value="Perdido">🚨 Perdido</option>
+                        <option value="Encontrado">✅ Encontrado</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="form-label">Nome do Pet (se souber)</label>
+                    <input type="text" id="nome" placeholder="Ex: Mel, Caramelo..." class="form-input">
+                </div>
+                <div class="md:col-span-2">
+                    <label class="form-label">Descrição / Características</label>
+                    <textarea id="descricao" required placeholder="Ex: Vira-lata dócil, porte médio, sumiu perto da padaria central." class="form-input h-20"></textarea>
+                </div>
+                <div>
+                    <label class="form-label">Localização (Bairro/Cidade)</label>
+                    <input type="text" id="local" required placeholder="Ex: Bairro Centro, São Paulo" class="form-input">
+                </div>
+                <div>
+                    <label class="form-label">WhatsApp de Contato</label>
+                    <input type="text" id="contato" required placeholder="Ex: (11) 99999-9999" class="form-input">
+                </div>
+                <div class="md:col-span-2">
+                    <label class="form-label">Link da Foto do Pet</label>
+                    <input type="url" id="foto_url" placeholder="Cole o link de uma imagem da internet" class="form-input">
+                </div>
+                <div class="md:col-span-2">
+                    <button type="submit" class="btn-submit">
+                        Publicar Anúncio (Disparar POST)
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <section>
+            <h2 class="mural-title">Mural de Alertas (Dados da API)</h2>
+            <div id="mural" class="mural-grid">
+                </div>
+        </section>
+
+    </main>
+
+    <script>
+        const API_URL = "http://localhost:3000/api/pets";
+        const petForm = document.getElementById('petForm');
+        const mural = document.getElementById('mural');
+
+        // FUNÇÃO: Buscar os pets usando o método GET padrão da API
+        async function buscarPets() {
+            try {
+                const response = await fetch(API_URL);
+                const pets = await response.json();
+
+                mural.innerHTML = '';
+
+                if (!pets || pets.length === 0) {
+                    mural.innerHTML = `<p class="text-gray-500 col-span-2 text-center py-8">Nenhum alerta cadastrado no momento.</p>`;
+                    return;
+                }
+
+                pets.forEach(pet => {
+                    const ehPerdido = pet.status.toLowerCase().includes('perdido');
+                    
+                    // Definição dinâmica de classes css mapeadas do arquivo style.css
+                    const corBordaCard = ehPerdido ? 'border-red-500' : 'border-green-500';
+                    const tagCorStatus = ehPerdido ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800';
+                    const statusTexto = ehPerdido ? '🚨 PERDIDO' : '✅ ENCONTRADO';
+                    
+                    const imagemUrl = pet.foto_url || 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=500';
+                    const linkWhats = `https://wa.me/${pet.contato.replace(/\D/g, '')}`;
+
+                    /* Injeção de HTML utilizando as novas classes CSS limpas */
+                    mural.innerHTML += `
+                        <div class="pet-card ${corBordaCard}">
+                            <img src="${imagemUrl}" alt="Pet" class="pet-card-img">
+                            <div class="pet-card-body">
+                                <span class="badge-status ${tagCorStatus}">${statusTexto}</span>
+                                <h3 class="pet-name">${pet.nome} (ID: ${pet.id})</h3>
+                                <p class="pet-desc">${pet.descricao}</p>
+                                <p class="pet-local">📍 Local: ${pet.local}</p>
+                                <div class="pet-card-footer">
+                                    <button onclick="deletarPet(${pet.id})" class="btn-delete">❌ Excluir Anúncio</button>
+                                    <a href="${linkWhats}" target="_blank" class="btn-whats">Whats</a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            } catch (error) {
+                console.error('Erro ao buscar pets da API:', error);
+                mural.innerHTML = `<p class="text-red-500 col-span-2 text-center py-8">Erro ao conectar com o servidor Back-end. Certifique-se de que ele está rodando.</p>`;
+            }
+        }
+
+        // FUNÇÃO: Enviar os dados via requisição POST para a API
+        petForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const status = document.getElementById('status').value;
+            const nome = document.getElementById('nome').value;
+            const descricao = document.getElementById('descricao').value;
+            const local = document.getElementById('local').value;
+            const contato = document.getElementById('contato').value;
+            const foto_url = document.getElementById('foto_url').value;
+
+            const novoPet = { status, nome, descricao, local, contato, foto_url };
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(novoPet)
+                });
+
+                if (response.ok) {
+                    alert('Anúncio publicado na API local com sucesso! 🐾');
+                    petForm.reset();
+                    buscarPets(); 
+                } else {
+                    const erro = await response.json();
+                    alert('Erro na API: ' + erro.erro);
+                }
+            } catch (error) {
+                alert('Não foi possível conectar ao servidor: ' + error.message);
+            }
+        });
+
+        // FUNÇÃO: Disparar requisição DELETE para o Controller de remoção
+        async function deletarPet(id) {
+            if (!confirm('Deseja realmente remover este anúncio?')) return;
+
+            try {
+                const response = await fetch(`${API_URL}/${id}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.ok) {
+                    alert('Anúncio removido da memória da API!');
+                    buscarPets();
+                } else {
+                    alert('Erro ao deletar.');
+                }
+            } catch (error) {
+                alert('Erro de conexão.');
+            }
+        }
+
+        buscarPets();
+    </script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+/* --- ESTILIZAÇÃO DO LAYOUT GERAL --- */
+body {
+    background-color: #f3f4f6;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+}
+
+.header-main {
+    background-color: #4f46e5;
+    color: #ffffff;
+    padding: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.container-center {
+    max-width: 56rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.badge-mode {
+    font-size: 0.875rem;
+    background-color: #4338ca;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+}
+
+.main-content {
+    max-width: 56rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1rem;
+    margin-top: 1.5rem;
+}
+
+/* --- ESTILIZAÇÃO DO FORMULÁRIO (POST) --- */
+.form-section {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #1f2937;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .md\:col-span-2 {
+        grid-column: span 2 / span 2;
+    }
+}
+
+.form-label {
+    display: block;
+    color: #374151;
+    font-size: 0.875rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.25rem;
+    background-color: #f9fafb;
+    box-sizing: border-box;
+    transition: all 0.2s;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+}
+
+.btn-submit {
+    width: 100%;
+    background-color: #4f46e5;
+    color: #ffffff;
+    font-weight: 700;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-submit:hover {
+    background-color: #4338ca;
+}
+
+/* --- ESTILIZAÇÃO DO MURAL E CARDS (GET) --- */
+.mural-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 1rem;
+}
+
+.mural-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .mural-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.pet-card {
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border-top-width: 4px;
+    border-top-style: solid;
+}
+
+/* Classes dinâmicas para as bordas injetadas pelo JS */
+.border-red-500 { border-top-color: #ef4444; }
+.border-green-500 { border-top-color: #10b981; }
+
+.pet-card-img {
+    width: 100%;
+    height: 12rem;
+    object-fit: cover;
+}
+
+.pet-card-body {
+    padding: 1rem;
+}
+
+.badge-status {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.125rem 0.625rem;
+    border-radius: 0.25rem;
+    display: inline-block;
+}
+
+/* Classes dinâmicas para as tags injetadas pelo JS */
+.bg-red-100 { background-color: #fee2e2; color: #991b1b; }
+.bg-green-100 { background-color: #d1fae5; color: #065f46; }
+
+.pet-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+    color: #1f2937;
+}
+
+.pet-desc {
+    color: #4b5563;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0;
+}
+
+.pet-local {
+    color: #374151;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+.pet-card-footer {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #f3f4f6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-delete {
+    color: #dc2626;
+    background: none;
+    border: none;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-delete:hover {
+    color: #991b1b;
+}
+
+.btn-whats {
+    background-color: #10b981;
+    color: #ffffff;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.btn-whats:hover {
+    background-color: #059669;
+}

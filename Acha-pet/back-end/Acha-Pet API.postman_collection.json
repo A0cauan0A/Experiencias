@@ -1,0 +1,101 @@
+{
+  "info": {
+    "_postman_id": "3f52a556-5051-4bbe-ba26-2788abec88e4",
+    "name": "Acha-Pet API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "47767299"
+  },
+  "item": [
+    {
+      "name": "Listar Pets",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/pets",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "pets"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Criar Anuncio",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"status\": \"Perdido\",\r\n  \"nome\": \"Pipoca\",\r\n  \"descricao\": \"Poodle branco bem pequeno, sumiu no centro.\",\r\n  \"local\": \"Bairro Centro\",\r\n  \"contato\": \"49999999999\",\r\n  \"foto_url\": \"\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/pets",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "pets"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Atualizar Pet",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/pets/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "pets",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/pets/2",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "pets",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
